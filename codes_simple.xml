@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<codes>
+<autosave>
+
+int i;
+int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
+for( i=0; i&lt;130; i++ ) {
+    farbe(i, farben[i % (sizeof( farben) / sizeof( int )) ] );
+}
+
+</autosave>
+<snippet name="modulo">
+
+<codeA><![CDATA[
+
+int i;
+int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
+for( i=0; i<130; i++ ) {
+    farbe(i, farben[i % (sizeof( farben) / sizeof( int )) ] );
+}
+
+]]></codeA>
+</snippet>
+</codes>

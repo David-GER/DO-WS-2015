@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<codes>
+    <autosave>int i;
+
+        form( 43,"tru" );
+        form( 54,"trd" );
+        form( 45,"tld" );
+        form( 34,"tlu" );
+        farbe( 43, YELLOW );
+        farbe( 54, YELLOW );
+        farbe( 45, YELLOW );
+        farbe( 34, YELLOW );
+        farbe( 44, DARKBLUE );
+
+        for( i=4; i&lt;8; i++ ) {
+        farbe(i, RED );
+        }
+    </autosave>
+    <snippet name="modulo">
+        <code>
+            int i;
+            int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
+
+            for( i=0; i&lt;130; i++ ) {
+                farbe(i, farben[i % (sizeof( farben) / sizeof( int )) ] );
+            }
+        </code>
+    </snippet>
+    <snippet name="noName">
+        <code>
+            int i, j;
+            int farben[] = { RED, BLUE, GREEN, BLACK, YELLOW, 0x1310FA};
+            for( i=0; i&lt;14; i++) {
+            for( j=0; j&lt;20; j++) {
+            farbe2(i, j, farben[(i + j )% (sizeof( farben) / sizeof( int )) ] );
+            }
+            }
+        </code>
+        <updated>Tue Oct 20 15:04:31 CEST 2015</updated>
+    </snippet>
+
+    <snippet name="grauen">
+        <tag>Graustufen</tag>
+        <code>
+            int i;
+
+            // alles loeschen und Grundfarben setzen
+            loeschen();
+            groesse( 16,1);
+            for( i=0; i&lt;16; i++ ) {
+            grau( i, i*16 );
+            symbolGroesse(i, 0.5*i/16);
+            }
+        </code>
+    </snippet>
+
+    <snippet name="wachsen">
+        <code>
+            int i;
+
+            // alles loeschen und Grundfarben setzen
+            loeschen();
+            formen( "tld" );
+            groesse( 12,12);
+            for( i=0; i&lt;12*12; i++ ) {
+            farbe( i, BLACK );
+            symbolGroesse( i, 0.5 * i / 12 / 12 );
+            }
+        </code>
+    </snippet>
+
+    <snippet name="wachsenGrau">
+        <tag>Graustufen</tag>
+        <code>
+            int max = 12;
+            int i;
+
+            // alles loeschen und Grundfarben setzen
+            loeschen();
+            groesse( max, max);
+            formen("tld");
+            for( i=0; i&lt;max*max; i++ ) {
+            symbolGroesse( i, 0.5 * i / max /max );
+            grau(i, 255 * i /max /max );
+            hintergrund( i, WHITE );
+            }
+        </code>
+    </snippet>
+    <snippet name="D">
+        <code>
+            int i;
+
+            formen( "s" );
+
+            for( i=0; i&lt;30; i++ ) {
+            farbe(i, GOLD );
+            hintergrund(i, GOLD );
+            }
+
+            for( i=30; i&lt;70; i++ ) {
+            farbe(i, RED );
+            hintergrund(i, RED );
+            }
+
+            for( i=70; i&lt;100; i++ ) {
+            farbe(i, BLACK );
+            hintergrund(i, BLACK );
+            }
+
+            farbe( 12, 0xff );
+            farbe(22, 0xff );
+            farbe(32, 0xff );
+            farbe(42, 0xff);
+            farbe(52, 0xff);
+            farbe(62, 0xff);
+            farbe(72, 0xff);
+            farbe(82, 0xff);
+            farbe(83, 0xff);
+            farbe(13, 0xff);
+            farbe(14, 0xff);
+            form( 14, "tlu");
+            farbe(24, 0xff);
+            form( 24, "trd");
+            form( 84, "tld");
+            farbe(84, 0xff);
+            farbe(74, 0xff);
+            form( 74, "tru");
+            farbe(25, 0xff);
+            form(25, "tlu");
+            farbe(75, 0xff);
+            form( 75, "tld");
+            farbe(65, 0xff);
+            form( 65, "tru");
+            farbe(35, 0xff);
+            form(35, "trd");
+            farbe(66, 0xff);
+            form( 66, "tld");
+            farbe(36, 0xff);
+            form( 36, "tlu");
+            farbe(56, 0xff);
+            farbe(46, 0xff);
+
+
+        </code>
+    </snippet>
+    <snippet name="stadion">
+        <code>formen("none" );
+
+            form( 54, "s" );
+            farbe( 54, BROWN );
+            form( 44, "s" );
+            farbe( 44, BROWN );
+            form( 34, "s" );
+            farbe( 34, BROWN );
+            form( 24, "s" );
+            farbe( 24, BROWN );
+            form( 64, "|" );
+            farbe( 64, GOLD );
+
+            form( 53, "trd" );
+            farbe( 53, GREEN );
+            form( 43, "trd" );
+            farbe( 43, GREEN );
+            form( 32, "trd" );
+            farbe( 32, GREEN );
+            form( 33, "s" );
+            farbe( 33, GREEN );
+
+            form( 55, "tld" );
+            farbe( 55, GREEN );
+            form( 45, "tld" );
+            farbe( 45, GREEN );
+            form( 36, "tld" );
+            farbe( 36, GREEN );
+            form( 35, "s" );
+            farbe( 35, GREEN );
+
+        </code>
+    </snippet>
+    <snippet name="baum">
+        <code>formen("none" );
+
+            form( 54, "s" );
+            farbe( 54, BROWN );
+            form( 44, "s" );
+            farbe( 44, BROWN );
+            form( 34, "s" );
+            farbe( 34, BROWN );
+            form( 24, "s" );
+            farbe( 24, BROWN );
+            form( 64, "|" );
+            farbe( 64, GOLD );
+
+            form( 53, "trd" );
+            farbe( 53, GREEN );
+            form( 43, "trd" );
+            farbe( 43, GREEN );
+            form( 32, "trd" );
+            farbe( 32, GREEN );
+            form( 33, "s" );
+            farbe( 33, GREEN );
+
+            form( 55, "tld" );
+            farbe( 55, GREEN );
+            form( 45, "tld" );
+            farbe( 45, GREEN );
+            form( 36, "tld" );
+            farbe( 36, GREEN );
+            form( 35, "s" );
+            farbe( 35, GREEN );
+
+        </code>
+    </snippet>
+    <snippet name="windrad">
+        <code>form( 43,"tru" );
+            form( 54,"trd" );
+            form( 45,"tld" );
+            form( 34,"tlu" );
+            farbe( 43, YELLOW );
+            farbe( 54, YELLOW );
+            farbe( 45, YELLOW );
+            farbe( 34, YELLOW );
+            farbe( 44, DARKBLUE );
+        </code>
+        <updated>Thu Sep 17 10:29:05 CEST 2015</updated>
+    </snippet>
+    <snippet name="sudoku">
+        <code>const int n=9;
+            int i, j;
+
+            int feld[11][9] = {
+            {6, 0, 3, 0, 0, 0, 5, 0, 8},
+            {0, 5, 0, 0, 9, 0, 0, 6, 0},
+            {9, 0, 0, 5, 0, 2, 0, 0, 7},
+            {0, 0, 5, 9, 0, 6, 8, 0, 0},
+            {0, 3, 0, 0, 1, 0, 0, 7, 0},
+            {0, 0, 2, 7, 0, 3, 1, 0, 0},
+            {5, 0, 0, 2, 0, 4, 0, 0, 1},
+            {0, 8, 0, 0, 7, 0, 0, 3, 0},
+            {3, 0, 7, 0, 0, 0, 4, 0, 6},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 2, 3, 4, 5, 6, 7, 8, 9}
+            };
+            int farben[] = {WHITE, BLUE, RED, CHOCOLATE, PLUM, TOMATO, GOLD, GREEN, BLACK, SILVER };
+            char *formen[] = {"c", "+", "*", "tld", "d", "trd", "s", "|", "-", "tlu" };
+
+            groesse( n, n+2);
+            for( i=0; i&lt;n+2; i++ ) {
+            for( j=0; j&lt;n; j++ ) {
+            farbe2( j, i, farben[ feld[i][j] ] );
+            if( i &lt; 3 &amp;&amp; j &lt; 3 || i&lt;3 &amp;&amp; j &gt; 5 || i&gt;5 &amp;&amp; i&lt;9 &amp;&amp; j &lt;
+            3 || i&gt;5 &amp;&amp; i&lt;9 &amp;&amp; j &gt; 5
+            || i&gt;2 &amp;&amp; i &lt; 6 &amp;&amp; j &gt; 2 &amp;&amp; j &lt; 6) {
+            hintergrund( j + n* i, 0x9FF3E9);
+            } else if( i &lt;n ) {
+            hintergrund( j + n* i, 0xFFE4E9);
+            }
+            symbolGroesse( j + n * i,0.4);
+            if( i == n ) {
+            form2( j, i, "none" );
+            } else {
+            form2( j, i, formen[ feld[i][j] ] );
+            }
+            }
+            }
+        </code>
+    </snippet>
+    <snippet name="schach">
+        <code>
+            int n;
+
+            for( n=0; n&lt;8*8; n++ ) {
+            if( (n / 8 + n % 2 ) % 2 == 0 ) {
+            farbe( n, BLACK );
+            } else {
+            farbe( n, WHITE );
+            }
+            }
+        </code>
+        <updated>Mon Sep 21 16:49:51 CEST 2015</updated>
+    </snippet>
+    <snippet name="quadrat">
+        <code>
+            int i, j;
+
+            for( i=0; i&lt;8; i++ ) {
+            for( j=0; j&lt;=i; j++ ) {
+            farbe2( i, j, BLUE );
+            }
+            }
+
+        </code>
+    </snippet>
+    <snippet name="dreieck">
+        <code>
+            int i, j;
+
+            for( i=0; i&lt;8; i++ ) {
+            for( j=0; j&lt;=i; j++ ) {
+            farbe2( i, j, BLUE );
+            }
+            }
+
+        </code>
+    </snippet>
+    <snippet name="dreieck2">
+        <code>
+            int max = 20;
+            int i, j;
+
+            // alles loeschen und Grundfarben setzen
+            loeschen();
+            formen( "none" );
+            flaeche( 0xFFF047);
+            rahmen( 0xFFF047 );
+
+            for( i=0; i&lt;max; i++ ) {
+            for( j=0; j&lt;max; j++ ) {
+            if( i == j ) {
+            farbe2(i, j, DARKBLUE);
+            form2(i,j, "tlu" );
+            } else if( i &gt; j ) {
+            //farbe2(i, j, 0xFFF047);
+            } else {
+            farbe2(i, j, DARKBLUE);
+            form2(i,j, "s" );
+            }
+            }
+            }
+        </code>
+    </snippet>
+    <snippet name="rgb">
+        <code>int i;
+            int max = 400;
+
+            clear();
+            flaeche( 0xFFF047);
+            for( i=0; i&lt;max; i+=3 ) {
+            farbe(i, (i *256 / max) );
+            farbe(i+1, (i *256 / max) &lt;&lt; 8);
+            farbe(i+2, (i *256 / max) &lt;&lt; 16);
+            }
+        </code>
+    </snippet>
+    <snippet name="neueVersion">
+        <created>Wed Sep 16 15:58:03 CEST 2015</created>
+        <codeA><![CDATA[
+
+
+int i, j;
+
+for( i=0; i<8; i++ ) {
+   for( j=0; j<=i; j++ ) {
+	farbe2( i, j, BLUE );
+   }
+}
+
+
+
+]]></codeA>
+        <updated>Thu Sep 17 10:23:46 CEST 2015</updated>
+    </snippet>
+    <snippet name="ttt">
+        <author>nobody</author>
+        <created>Thu Sep 17 10:28:09 CEST 2015</created>
+        <codeA><![CDATA[
+int i, j;
+
+for( i=0; i<8; i++ ) {
+   for( j=0; j<=i; j++ ) {
+	farbe2( i, j, BLUE );
+   }
+}
+
+
+
+]]></codeA>
+        <updated>Thu Oct 15 08:43:28 CEST 2015</updated>
+    </snippet>
+    <snippet name="tet">
+        <author>Stephan Euler</author>
+        <created>Thu Sep 17 17:12:18 CEST 2015</created>
+        <codeA><![CDATA[
+
+int n;
+groesse(8, 9);
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="berg">
+        <author>Stephan Euler</author>
+        <created>Mon Sep 21 16:10:22 CEST 2015</created>
+        <codeA><![CDATA[
+
+
+
+int i, j;
+farben( WHITE);
+
+for( i=0; i<10; i+=2 ) {
+   for( j=1; j<2*i; j++ ) {
+	farbe2( i, j, BLUE );
+   }
+}
+for( i=10; i<20; i+=2 ) {
+   for( j=1; j<2*(20-i); j++ ) {
+	farbe2( i, j, BLUE );
+   }
+}
+
+
+
+
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="q2">
+        <author>Stephan Euler</author>
+        <created>Mon Sep 21 16:13:18 CEST 2015</created>
+        <codeA><![CDATA[
+
+
+groesse( 20, 20 );
+int i, j;
+farben( WHITE);
+
+for( j=0; j<20; j+=2 ) {
+   if( j < 10 ) {
+   	for( i=0; i<10; i+=1 ) {
+		farbe2( i, j, BLUE );
+   	}
+   } else {
+   	for( i=10; i<20; i+=1 ) {
+		farbe2( i, j, BLUE );
+   	}
+   }
+}
+
+
+
+
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="kreis">
+        <author>Stephan Euler</author>
+        <created>Mon Sep 21 16:18:57 CEST 2015</created>
+        <codeA><![CDATA[
+
+int n = 60;
+int i, j;
+
+groesse( n, n );
+farben( WHITE);
+
+for( j=0; j<n; j++ ) {
+	for( i=0; i<n; i++ ) {
+		if( (i-n/2)*(i-n/2) + (j-n/2)*(j-n/2) < n*n/9 ) {
+			farbe2(i, j, RED );
+		}
+	}
+}
+
+
+
+
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="buchstaben">
+        <author>Stephan Euler</author>
+        <created>Tue Sep 22 15:11:09 CEST 2015</created>
+        <codeA><![CDATA[
+
+char buch[] = "A";
+int i, j;
+
+for(  j=7; j>=0; j-- ) {
+	for(  i=0; i<8; i++ ) {
+		text2(i, j, buch );
+		++buch[0];
+	}
+}
+
+
+
+
+
+
+
+]]></codeA>
+        <updated>Mon Sep 28 11:58:39 CEST 2015</updated>
+    </snippet>
+    <snippet name="ASCII">
+        <author>Stephan Euler</author>
+        <created>Tue Sep 22 15:21:59 CEST 2015</created>
+        <codeA><![CDATA[
+
+char buch[] = "A";
+int i;
+
+for(  i=32; i<64; i++ ) {
+	buch[0] = i;
+	text(i, buch );
+}
+
+
+
+
+
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="zeichen">
+        <author>Stephan Euler</author>
+        <created>Wed Sep 30 08:54:52 CEST 2015</created>
+        <codeA><![CDATA[
+
+char z;
+int i;
+
+groesse( 16, 5 );
+for(  i=0; i<80; i++ ) {
+   z = 48 + i;
+   zeichen(i, z );
+}
+
+
+
+
+]]></codeA>
+        <updated>Thu Oct 15 17:32:16 CEST 2015</updated>
+    </snippet>
+    <snippet name="random">
+        <author>Stephan Euler</author>
+        <created>Fri Oct 09 08:44:28 CEST 2015</created>
+        <codeA><![CDATA[
+const int anzahl = 20;
+int i;
+
+groesse( anzahl, 1);
+
+double feld[anzahl];
+
+// Initializiere Zufallszahlengenerator mit aktueller Uhrzeit
+// sonst kommt immer die gleiche Zahlenfolge
+srand ( time(NULL) );
+
+// Feld mit Zufallszahlen fuellen
+for( i=0; i<anzahl; i++ ) {
+	feld[i] = 0.1 + 0.4* (float) rand()/RAND_MAX;
+	symbolGroesse( i, feld[i] );
+}
+]]></codeA>
+        <updated>Fri Oct 09 09:19:44 CEST 2015</updated>
+    </snippet>
+    <snippet name="MinMax">
+        <author>Stephan Euler</author>
+        <created>Fri Oct 09 08:49:04 CEST 2015</created>
+        <codeA><![CDATA[
+
+const int anzahl = 20;
+int i;
+int min = 0, max = 0;
+
+groesse( 20, 1);
+loeschen();
+
+double feld[anzahl];
+
+// Initializiere Zufallszahlengenerator mit aktueller Uhrzeit
+// sonst kommt immer die gleiche Zahlenfolge
+srand ( time(NULL) );
+
+
+for( i=0; i<anzahl; i++ ) {
+	feld[i] = 0.1 + 0.4* (float) rand()/RAND_MAX;
+	symbolGroesse( i, feld[i] );
+
+}
+
+for( i=1; i<anzahl; i++ ) {
+	if( feld[i] < feld[min] ) min = i;
+	if( feld[i] > feld[max] ) max = i;
+}
+
+farbe( min, RED );
+farbe( max, GREEN );
+
+
+
+]]></codeA>
+        <updated>Fri Oct 09 09:13:03 CEST 2015</updated>
+    </snippet>
+    <snippet name="groesse2">
+        <author>Stephan Euler</author>
+        <created>Tue Oct 13 11:30:56 CEST 2015</created>
+        <codeA><![CDATA[
+
+int i;
+int anzahl = 20;
+
+// alles loeschen und Grundfarben setzen
+loeschen();
+formen( "*" );
+groesse( anzahl, 1);
+for( i=0; i<anzahl; i++ ) {
+    farbe( i, BLACK );
+    symbolGroesse( i, 0.1 + 0.4 * i / anzahl );
+}
+
+]]></codeA>
+    </snippet>
+    <snippet name="spalt">
+        <author>Stephan Euler</author>
+        <created>Tue Oct 13 11:53:17 CEST 2015</created>
+        <codeA><![CDATA[
+
+int i, j;
+int anzahl = 20;
+double x, w;
+
+// alles loeschen und Grundfarben setzen
+loeschen();
+formen( "s" );
+groesse( anzahl, anzahl);
+for( i=0; i<anzahl; i++ ) {
+   for( j=0; j<anzahl; j++ ) {
+    farbe( i, BLACK );
+    w= sqrt(i*i+j*j);
+    x = (1+ sin( w ) / w) / 2.;
+    symbolGroesse2( i, j,   0.5 * w / anzahl );
+}
+}
+
+]]></codeA>
+        <updated>Tue Oct 13 11:59:49 CEST 2015</updated>
+    </snippet>
+    <snippet name="sinusProd">
+        <author>Stephan Euler</author>
+        <created>Tue Oct 13 12:34:46 CEST 2015</created>
+        <codeA><![CDATA[int i,j;
+double PI = 3.141596;
+int N = 20;
+
+groesse( N, N);
+for( i=0; i<N; i++ ) {
+   for( j=0; j<N; j++ ) {
+      double x = sin( i * 2. * PI /N ) * cos( j* 2. *PI / N);
+      if( x < 0 ) {
+         farbe2(i, j, RED);
+      } else {
+         farbe2(i, j, GREEN);
+      }
+      symbolGroesse2(i, j, 0.5 * x );
+   }
+}]]></codeA>
+        <updated>Wed Oct 14 12:42:45 CEST 2015</updated>
+    </snippet>
+    <snippet name="reiskoerner">
+        <author>Stephan Euler</author>
+        <created>Wed Oct 14 12:36:36 CEST 2015</created>
+        <codeA><![CDATA[
+int n;
+double r = 1;
+
+for( n=1; n<=64; n++ ) {
+    double h = r *3.e-8/70/105;
+    double lkw =  (r * 30 / 1000) / (7500  * 1000);
+    printf("Feld %2d: %g Koerner, %g m %g LKW\n", n, r, h, lkw );
+    r *= 2.;
+}
+
+]]></codeA>
+    </snippet>
+    <snippet name="sincos2">
+        <author>Stephan Euler</author>
+        <created>Thu Oct 15 09:28:51 CEST 2015</created>
+        <codeA><![CDATA[int N = 40;
+int i,j;
+double PI = 3.141596;
+double upper = 4*PI;
+
+groesse( N, N);
+for( i=0; i<N; i++ ) {
+   double x = i * upper /N;
+   for( j=0; j<N; j++ ) {
+      double y = j * upper / N;
+      double z = sin( x ) * sin( y  );
+      if( z < 0 ) {
+         farbe2(i, j, RED);
+      } else {
+         farbe2(i, j, GREEN);
+      }
+      symbolGroesse2(i, j, 0.5 * z );
+   }
+}]]></codeA>
+        <updated>Thu Oct 15 09:31:29 CEST 2015</updated>
+    </snippet>
+    <snippet name="zeichenTest">
+        <author>Stephan Euler</author>
+        <created>Thu Oct 15 13:07:31 CEST 2015</created>
+        <codeA><![CDATA[
+
+zeichen2( 2, 2, '+' );
+
+
+
+
+
+
+]]></codeA>
+    </snippet>
+    <snippet name="atom">
+        <author>Stephan Euler</author>
+        <created>Thu Oct 15 14:55:02 CEST 2015</created>
+        <codeA><![CDATA[
+groesse( 12, 12 );
+
+formen( "none" );
+
+form( 76, "c" );
+form( 78, "c" );
+form( 65, "c" );
+form( 52, "c" );
+form( 54, "c" );
+form( 77, "c" );
+form( 64, "c" );
+form( 66, "c" );
+form( 53, "c" );
+
+farbe(76, YELLOW);
+farbe(78, YELLOW);
+farbe(65, YELLOW);
+farbe(52, YELLOW);
+farbe(54, YELLOW);
+farbe(77, BLUE);
+zeichen( 77, '+' );
+farbe(64, BLUE);
+zeichen( 64, '+' );
+farbe(66, BLUE);
+zeichen( 66, '+' );
+farbe(53, BLUE);
+zeichen( 53, '+' );
+
+form( 69, "c" );
+form( 102, "c" );
+form( 62, "c" );
+form( 17, "c" );
+farbe(69, RED);
+zeichen( 69, '-' );
+symbolGroesse( 69, 0.3);
+farbe(102, RED);
+zeichen( 102, '-' );
+symbolGroesse( 102, 0.3);
+farbe(17, RED);
+zeichen( 17, '-' );
+symbolGroesse( 17, 0.3);
+farbe(62, RED);
+zeichen( 62, '-' );
+symbolGroesse( 62, 0.3);
+
+
+
+
+]]></codeA>
+        <updated>Thu Oct 15 15:11:44 CEST 2015</updated>
+    </snippet>
+    <snippet name="feld1">
+        <author>Stephan Euler</author>
+        <created>Thu Oct 15 17:58:48 CEST 2015</created>
+        <codeA><![CDATA[
+
+int blau[] = { 2, 4, 6, 8, 13, 15, 17, 24, 26, 35, 45, 55};
+int i;
+
+for( i=0; i<sizeof( blau ) / sizeof(int); i++ ) {
+   farbe( blau[i], BLUE );
+}
+
+
+
+]]></codeA>
+    </snippet>
+</codes>
