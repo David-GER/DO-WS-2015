@@ -137,7 +137,8 @@
      *
      * - Form to add new snippets
      * - Way to save snippets to xml file
-     * - Search function (widget in navbar)
+     * - Search function (widget in navbar) 
+	 
      * - Ordering by functionality (created, name, etc)
      * - Edit, Delete Buttons
      * - Way to edit existing code in form
