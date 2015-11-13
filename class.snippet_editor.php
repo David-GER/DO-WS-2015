@@ -45,12 +45,12 @@
 				
 				// Add "updated" elements
 				for($j = 0, $d = count($snippets[$i]->updated); $j < $d; $j++) {
-					$this->snippets[$i]->addUpdate((string) $snippets[$i]->updated[$j]);
+					$this->snippets[$i]->addUpdate(trim((string) $snippets[$i]->updated[$j]));
 				}
 				
 				// Add "tag" elements
 				for($j = 0, $d = count($snippets[$i]->tag); $j < $d; $j++) {
-					$this->snippets[$i]->addTag((string) $snippets[$i]->tag[$j]);
+					$this->snippets[$i]->addTag(trim((string) $snippets[$i]->tag[$j]));
 				}
 			}
 		}
@@ -118,6 +118,20 @@
 			$element["name"] = $snippet->getName();
 			$element->codeA[0]->setCData($snippet->getCode());
 			$element->updated[] = Snippet::getDateString(new DateTime());
+			
+			// Update tags
+			$tags = $snippet->getTags();
+			$snippetTags = count($tags);
+			$elementTags = count($element->tag);
+			
+			for($i = 0; $i < $elementTags; $i++) {
+				unset($element->tag[0]);
+			}
+			
+			for($i = 0; $i < $snippetTags; $i++) {
+				$element->addChild("tag", $tags[$i]);
+			}
+			
 			
 			// Save...
 			return $this->save();

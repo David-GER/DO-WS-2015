@@ -50,7 +50,18 @@
 		}
 		
 		public function addTag($name) {
-			$this->tags[] = $name;
+			if(!in_array($name, $this->tags)) $this->tags[] = $name;
+		}
+		
+		public function removeTag($name) {
+			for($i = 0, $c = count($this->tags); $i < $c; $i++) {
+				if($this->tags[$i] == $name) {
+					unset($this->tags[$i]);
+					$this->tags = array_values($this->tags);
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		public function getTag($i) {

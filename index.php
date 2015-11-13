@@ -184,7 +184,7 @@
 		$updates = $snippet->getUpdates();
 		$tags = $snippet->getTags();
 		
-		echo '<div class="page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
+		echo '<div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
 			. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
 			. $snippet->getName() . '"><span>Delete</span></a></div>';
 
@@ -201,7 +201,13 @@
 
 		if ($tags) {
 			foreach($tags as $tag)
-				echo '<span class="tag">Updated ' . $tag . "</span><br/>\n";
+				echo
+					'<span class="tag btn btn-default btn-sm" style="margin: 5px 5px 5px 0;">
+						<span class="name">' . $tag . '</span>
+							<a style="display: inline-block; margin-right: -5px; padding-left: 5px;">
+								<i class="delete glyphicon glyphicon-remove" style="vertical-align: text-top;"></i>
+							</a> 
+					</span>';
 		}
 
 		echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
@@ -311,6 +317,32 @@
         var code = editor.getValue();
         $editor.prev('input[type=hidden]').val(code);
     });
+	
+	/**
+	 * delete tags
+	 */
+	$(".tag .delete").click(function(){
+		var tag = $(this).closest(".tag");
+		var tagName = tag.children(".name").text();
+		var snippetName = tag.prevAll(".snippet:first").children("h1").text();
+		
+		console.log("Remove tag '" + tagName + "' from snippet '" + snippetName + "'");
+		
+		$.ajax({
+			method: "POST",
+			url: "ajax.php",
+			data: {method: "deleteTag", name: tagName, snippet: snippetName},
+			success: function(data) {
+				try {
+					var json = JSON.parse(data);
+					if(json.status !== "OK") console.error("Ajax error: " + json.msg);
+					else tag.remove();
+				} catch(e) {
+					console.error("JSON Parser exception: " + e);
+				}
+			}
+		})
+	});
 
 </script>
 
