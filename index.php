@@ -184,42 +184,18 @@
                 $xml->asXML($fileName);
             }
         } else if (isset($_GET["delete"])) {
-            $idToDelete = $_GET["delete"];
-
-
-            $xmlDOM = new DOMDocument();
-            $xmlDOM->loadXML($xml->asXML());
-
-            $snippet = $xmlDOM->childNodes->item(0)->childNodes->item($idToDelete);
-
-
-            $findCounter = 0;
-
-            foreach ($xmlDOM->childNodes->item(0)->childNodes as $child) {
-                if ($child->nodeType == 1 && $child->nodeName == 'snippet') {
-                    if ($findCounter == $idToDelete) {
-//                        print_r($child);
-                        $child->parentNode->removeChild($child);
-                        $xml=simplexml_load_string($xmlDOM->saveXML());
-                        $xml->asXML($fileName);
-                    }
-                    $findCounter++;
-                }
-            }
-
-            unset($_GET["delete"]);
+			
+			unset($xml->xpath('/codes/snippet[@name="'.$_GET["delete"].'"]')[0][0]);
+			$dom = dom_import_simplexml($xml)->ownerDocument->save($fileName);
+			
         }
 
-        $counter = 0;
-
-//        for ($counter = 0; $counter < $xml->children()->count(); $counter++) {
         foreach($xml->children() as $snippet ) {
-//            $snippet = $xml->children()[$counter];
             $tagName = $snippet->getName();
 
             if ($tagName != 'snippet') continue;
 
-            echo '<div class="page-header"><h1>' . $snippet['name'] . '</h1><a href="?edit=' . $counter . '"><span>Edit</span></a> <a href="?delete=' . $counter . '"><span>Delete</span></a></div>';
+            echo '<div class="page-header"><h1>' . $snippet['name'] . '</h1><a href="?edit=' . $snippet['name'] . '"><span>Edit</span></a> <a href="?delete=' . $snippet['name'] . '"><span>Delete</span></a></div>';
 
 
             if (!empty($snippet->created)) {
@@ -234,13 +210,8 @@
                 echo '<span class="updated">Updated ' . $snippet->updated . "</span><br/>\n";
             }
 
-            echo '<div><pre class="prettyprint lang-c linenums"><code>' .
-                htmlspecialchars($snippet->codeA) .
-                '</code></pre></div>';
-
+            echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->codeA) . '</code></pre></div>';
             echo "<br/>\n";
-
-            $counter++;
         }
 
     } else {
