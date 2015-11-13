@@ -27,7 +27,7 @@
 		private $updates = array();
 		private $tags = array();
 		
-		
+		// Constructor
 		public function __construct($name, $code, $created = null,  $author = null) {
 			$this->name = $name;
 			$this->code = $code;
