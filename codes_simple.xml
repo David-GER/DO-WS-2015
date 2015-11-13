@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <codes>
-	<autosave>
+  <autosave>
 
 	int i;
 	int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
@@ -9,21 +9,8 @@
 	}
 
 	</autosave>
-	<snippet name="modulo0">
-
-		<codeA><![CDATA[
-
-		int i;
-		int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
-		for( i=0; i<130; i++ ) {
-			farbe(i, farben[i % (sizeof( farben) / sizeof( int )) ] );
-		}
-
-		]]></codeA>
-	</snippet>
-	<snippet name="modulo1">
-
-		<codeA><![CDATA[
+  <snippet name="modulo0">
+    <codeA><![CDATA[
 
 		int i;
 		int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
@@ -32,10 +19,11 @@
 		}
 
 		]]></codeA>
-	</snippet>
-	<snippet name="modulo2">
-
-		<codeA><![CDATA[
+    <author>Hans</author>
+    <updated>Thu Sep 17 10:29:05 CEST 2015</updated>
+  </snippet>
+  <snippet name="modulo1">
+    <codeA><![CDATA[
 
 		int i;
 		int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
@@ -44,5 +32,16 @@
 		}
 
 		]]></codeA>
-	</snippet>
+  </snippet>
+  <snippet name="modulo2">
+    <codeA><![CDATA[
+
+		int i;
+		int farben[] = { RED, BLUE, GREEN, OLIVE, YELLOW, 0xCDD718};
+		for( i=0; i<130; i++ ) {
+			farbe(i, farben[i % (sizeof( farben) / sizeof( int )) ] );
+		}
+
+		]]></codeA>
+  </snippet>
 </codes>

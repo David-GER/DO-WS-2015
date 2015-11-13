@@ -135,15 +135,10 @@
     /**
      * TODO
      *
-     * - Form to add new snippets
-     * - Way to save snippets to xml file
      * - Search function (widget in navbar)
      * - Ordering by functionality (created, name, etc)
      * - Edit, Delete Buttons
      * - Way to edit existing code in form
-     *
-     *
-     * JUST A TEST
      *
      * - Make more pretty?
      *
@@ -154,9 +149,67 @@
      * - Be able to upload whole file to change?
      */
 
-    $fileName = 'codes_simple.xml';
+	require("functions.php");
+	require("class.snippet_editor.php");
 
+	$editor = new SnippetEditor('codes_simple.xml');
+	
+	// Insert, Edit, Delete
+	if (isset($_GET["add"]) === true) {
+        if (checkPOST("name", "code") === true) {
+			$editor->insertSnippet(new Snippet(
+				$_POST["name"],
+				$_POST["code"],
+				null,
+				checkPOST("author") === true ? $_POST["author"] : null
+			));
+		}
+	} elseif (checkGET("edit") === true) {
+		$snippet = $editor->getSnippet($_GET["edit"]);
+		
+		if($snippet) {
+			if(checkPOST("code") === true) $snippet->setCode($_POST["code"]);
+			$editor->updateSnippet($_GET["edit"]);
+			
+			if(checkPOST("name") === true) $editor->renameSnippet($_GET["edit"], $_POST["name"]);
+		}
+	} elseif (checkGET("delete") === true) $editor->deleteSnippet($_GET["delete"]);
+	
+	// Snippet Output
+	$snippets = $editor->getSnippets();
+	
+	for($i = 0, $c = count($snippets); $i < $c; $i++) {
+		$snippet = $snippets[$i];
+		$author = $snippet->getAuthor();
+		$updates = $snippet->getUpdates();
+		$tags = $snippet->getTags();
+		
+		echo '<div class="page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
+			. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
+			. $snippet->getName() . '"><span>Delete</span></a></div>';
 
+		echo '<span class="created">Created ' . $snippet->getCreated() . "</span><br/>\n";
+
+		if ($author) {
+			echo '<span class="author">By ' . $author . "</span><br/>\n";
+		}
+
+		if ($updates) {
+			foreach($updates as $update)
+				echo '<span class="updated">Updated ' . $update . "</span><br/>\n";
+		}
+
+		if ($tags) {
+			foreach($tags as $tag)
+				echo '<span class="tag">Updated ' . $tag . "</span><br/>\n";
+		}
+
+		echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
+		echo "<br/>\n";
+	}
+	
+
+	/*
     if (file_exists($fileName)) {
         $xml = simplexml_load_file($fileName);
 
@@ -175,7 +228,7 @@
                  * to add an already existing node object (of my extended new class)
                  * as a child to a parent node.
                  */
-                $codeA = $newSnippet->addChild('codeA');
+                /*$codeA = $newSnippet->addChild('codeA');
 
                 if ($codeA !== NULL) {
                     $node = dom_import_simplexml($codeA);
@@ -189,7 +242,7 @@
         } else if (isset($_GET["delete"])) {
 			
 			unset($xml->xpath('/codes/snippet[@name="'.$_GET["delete"].'"]')[0][0]);
-			$dom = dom_import_simplexml($xml)->ownerDocument->save($fileName);
+			dom_import_simplexml($xml)->ownerDocument->save($fileName);
 			
         }
 
@@ -219,7 +272,7 @@
 
     } else {
         exit('Could not read codex.xml!');
-    }
+    }*/
 
     ?>
 
