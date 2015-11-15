@@ -72,6 +72,31 @@
 			return -1;
 		}
 		
+		function search($name = null, $tag = null) {
+			$arr = $this->snippets;
+			
+			// Search for name
+			if(is_string($name)) {
+				for($i = 0, $c = count($arr); $i < $c; $i++) {
+					if(!preg_match("/.*" . preg_quote($name, "/") . ".*/", $arr[$i]->getName()))
+						unset($arr[$i]);
+				}
+				
+				$arr = array_values($arr);
+			}
+			
+			// Search for tag
+			if(is_string($tag)) {
+				for($i = 0, $c = count($arr); $i < $c; $i++) {
+					if($arr[$i]->hasTag($tag) === false) unset($arr[$i]);
+				}
+				
+				$arr = array_values($arr);
+			}
+			
+			return $arr;
+		}
+		
 		function insertSnippet($snippet) {
 			
 			// Skip insert if snippet already exists

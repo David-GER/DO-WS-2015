@@ -54,14 +54,11 @@
 		}
 		
 		public function removeTag($name) {
-			for($i = 0, $c = count($this->tags); $i < $c; $i++) {
-				if($this->tags[$i] == $name) {
-					unset($this->tags[$i]);
-					$this->tags = array_values($this->tags);
-					return true;
-				}
-			}
-			return false;
+			if(($i = $this->hasTag($name)) === false) return false;
+			
+			unset($this->tags[$i]);
+			$this->tags = array_values($this->tags);
+			return true;
 		}
 		
 		public function getTag($i) {
@@ -70,6 +67,13 @@
 		
 		public function getTags() {
 			return $this->tags;
+		}
+		
+		public function hasTag($name) {
+			for($i = 0, $c = count($this->tags); $i < $c; $i++) {
+				if($this->tags[$i] == $name) return $i;
+			}
+			return false;
 		}
 		
 		public function addUpdate($time) {

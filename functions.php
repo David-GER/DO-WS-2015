@@ -20,4 +20,10 @@
 		if(empty($unset)) return true;
 		else return implode(", ", $unset);
 	}
+	
+	function dump($v){
+		echo "<pre>";
+		var_dump($v);
+		echo "</pre>";
+	}
 ?>

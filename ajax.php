@@ -36,6 +36,20 @@
 				}
 				
 				finish("ERROR", "Snippet '" . $_POST["snippet"] . " not found in file '" . $file . "'");
+			case "filter":
+				$editor = new SnippetEditor($file);
+				
+				if(checkPOST("search") !== true) $_POST["search"] = null;
+				if(checkPOST("tag") !== true) $_POST["tag"] = null;
+				
+				$arr = $editor->search($_POST["search"], $_POST["tag"]);
+				$names = array();
+				
+				for($i = 0, $c = count($arr); $i < $c; $i++) {
+					$names[] = $arr[$i]->getName();
+				}
+				
+				finish("OK", json_encode($names));
 			default:
 				finish("ERROR", "Unkown method '" . $_POST["method"] . "'");
 		}

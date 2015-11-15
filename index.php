@@ -184,7 +184,7 @@
 		$updates = $snippet->getUpdates();
 		$tags = $snippet->getTags();
 		
-		echo '<div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
+		echo '<div class="snippet_wrapper"><div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
 			. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
 			. $snippet->getName() . '"><span>Delete</span></a></div>';
 
@@ -211,7 +211,7 @@
 		}
 
 		echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
-		echo "<br/>\n";
+		echo "</div>\n";
 	}
 	
 
@@ -318,10 +318,53 @@
         $editor.prev('input[type=hidden]').val(code);
     });
 	
+	function resetTagFilter() {
+		$(".tag").removeClass("btn-info");
+		$(".snippet_wrapper").show();
+	}
+	
+	$(".tag").click(function(){
+		var tagName = $(this).children(".name").text();
+		
+		if(!$(this).hasClass("btn-info")) {
+			resetTagFilter();
+		
+			console.log("Search for tag '" + tagName + "'");
+			
+			$.ajax({
+				method: "POST",
+				url: "ajax.php",
+				data: {method: "filter", tag: tagName},
+				success: function(data) {
+					try {
+						var json = JSON.parse(data);
+						if(json.status !== "OK") {
+							console.error("Ajax error: " + json.msg);
+							return;
+						}
+						
+						var names = JSON.parse(json.msg);
+						
+						$(".snippet_wrapper").each(function(){
+							if(names.indexOf($(this).find("h1").text()) === -1)
+								$(this).hide();
+							
+							$(".tag:contains(" + tagName + ")").addClass("btn-info");
+						});
+					} catch(e) {
+						console.error("JSON Parser exception: " + e + ", Output was: " + data);
+					}
+				}
+			});
+		} else resetTagFilter();
+	});
+	
 	/**
 	 * delete tags
 	 */
-	$(".tag .delete").click(function(){
+	$(".tag .delete").click(function(e){
+		e.stopPropagation();
+		
 		var tag = $(this).closest(".tag");
 		var tagName = tag.children(".name").text();
 		var snippetName = tag.prevAll(".snippet:first").children("h1").text();
@@ -338,11 +381,11 @@
 					if(json.status !== "OK") console.error("Ajax error: " + json.msg);
 					else tag.remove();
 				} catch(e) {
-					console.error("JSON Parser exception: " + e);
+					console.error("JSON Parser exception: " + e + ", Output was: " + data);
 				}
 			}
-		})
-	});
+		});
+	});	
 
 </script>
 
