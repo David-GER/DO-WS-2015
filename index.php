@@ -1,3 +1,14 @@
+<?php
+require("functions.php");
+require("class.snippet_editor.php");
+$editor = new SnippetEditor('codes_simple.xml');
+	
+if (checkGET("delete") === true) {
+	$editor->deleteSnippet($_GET["delete"]);
+	header("Location:index.php");
+	die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,32 +55,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Code Php Xml</a>
+            <a class="navbar-brand" href="index.php">Code Php Xml</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="edit.php">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="add.php">Add</a></li>
             </ul>
 
-            <form class="navbar-form navbar-left" role="search" method="post" action="?search">
+            <form class="navbar-form navbar-left" role="search" method="get">
                 <div class="form-group">
-                    <input type="text" name="searchword" class="form-control" placeholder="Search">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
                 </div>
                 <button class="btn btn-default" id="search_button">Submit</button>
             </form>
@@ -88,54 +85,7 @@
         <p>Browse through, create, update or delete code snippets loaded from an Xml file.</p>
     </div>
 
-    <form class="form-horizontal" method="post" action="?add">
-        <input type="hidden" name="type">
-        <div class="form-group">
-            <label for="inputName" class="col-sm-1 control-label">Name</label>
-
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputName" name="name"
-                       placeholder="Enter a name for the code.">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputAuthor" class="col-sm-1 control-label">Author</label>
-
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputAuthor" name="author" placeholder="Enter your name">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputTags" class="col-sm-1 control-label">Tags</label>
-
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputTags" name="tags" placeholder='Enter tags (separated by ";")'>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="editor" class="col-sm-1 control-label">Code</label>
-
-            <div class="col-sm-10">
-                <input type="hidden" name="code">
-
-                <div id="editor" style="height: 250px;">//Code here</div>
-
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-10">
-                <button type="submit" class="btn btn-default">Save</button>
-            </div>
-        </div>
-    </form>
-
-
-    <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/javascript");
-    </script>
+ 
 
     <?php
 
@@ -156,23 +106,11 @@
      * - Be able to upload whole file to change?
      */
 
-	require("functions.php");
-	require("class.snippet_editor.php");
-
-	$editor = new SnippetEditor('codes_simple.xml');
 	
-	// Insert, Edit, Delete
-	if (isset($_GET["add"]) === true) {
-        if (checkPOST("name", "code") === true) {
-			$editor->insertSnippet(new Snippet(
-				$_POST["name"],
-				$_POST["code"],
-				null,
-				checkPOST("author") === true ? $_POST["author"] : null,
-                checkPOST("tags") === true ? $_POST["tags"] : null
-			));
-		}
-	} elseif (checkGET("edit") === true) {
+	
+	// Edit, Delete
+	/*
+	if (checkGET("edit") === true) {
 		$snippet = $editor->getSnippet($_GET["edit"]);
 		
 		if($snippet) {
@@ -183,32 +121,24 @@
 		}
 	} elseif (checkGET("delete") === true) {
 		 $editor->deleteSnippet($_GET["delete"]);
-	} elseif (checkPOST("search")) {
-		if (isset ($_POST["searchword"])) {
-			$searchword = $_POST["searchword"];
-			$searchResults = $editor->search($searchword);
-			$searchResultCount = sizeof($searchResults);
-			
-			if ($searchResultCount > 0) {
-				echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
-				$editor->displaySnippets($searchResults);
-			} else {
-				echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
-			}
+		 $editor->displaySnippets($editor->getSnippets());
+	} else*/if (isset($_GET["search"])) {
+		$searchword = $_GET["search"];
+		$searchResults = $editor->search($searchword);
+		$searchResultCount = sizeof($searchResults);
+		
+		if ($searchResultCount > 0) {
+			echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
+			$editor->displaySnippets($searchResults);
+		} else {
+			echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
 		}
 	} else {
 		$editor->displaySnippets($editor->getSnippets());
 	}
-		
-	/*
-	if (checkGET("search")) echo 'Variante  1';
-	if (checkPOST("search")) echo 'Variante  2';
-	if (isset($_POST["search"])) echo 'Variante  3';
-	if ($_GET["search"]) echo 'Variante  4';
-	*/
 	
 	// Snippet Output
-	//$snippets = $editor->getSnippets();
+	
 	
 	/*
 	for($i = 0, $c = count($snippets); $i < $c; $i++) {
