@@ -80,7 +80,7 @@ if (checkGET("delete") === true) {
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <h1>CodeSnippetEditor</h1>
+        <h1 data-toggle="modal" data-target="#myModal">CodeSnippetEditor</h1>
 
         <p>Browse through, create, update or delete code snippets loaded from an XML file.</p>
     </div>
@@ -119,6 +119,24 @@ if (checkGET("delete") === true) {
 	}
 	?>
 
+</div>
+
+<div id="confirm_delete" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm deletion</h4>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete this entry?</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger btn-ok">Delete</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Bootstrap core JavaScript
@@ -204,7 +222,15 @@ if (checkGET("delete") === true) {
 				}
 			}
 		});
-	});	
+	});
+	
+	/**
+	 * confirm entry deletion
+	 */
+	$('#confirm_delete').on('show.bs.modal', function(e) {
+		console.log("HERE");
+		$(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+	});
 </script>
 
 </body>
