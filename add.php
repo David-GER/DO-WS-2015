@@ -8,6 +8,7 @@ $name = '';
 $author = '';
 $code = "//Code here";
 $tags = ''; 
+$mode = '?add';
 
 if (isset($_GET["add"]) === true) {
 	if (checkPOST("name", "code") === true) {
@@ -28,14 +29,21 @@ if (isset($_GET["add"]) === true) {
 	$author = $snippet->getAuthor();
 	$code = $snippet->getCode();
 	$tags = $snippet->parseTagToString();
-	
+	$mode = '?update';
+		
+} elseif (isset($_GET["update"]) === true) { 
+	$snippet = $editor->getSnippet($_POST["oldSnippetName"]);
 	if($snippet) {
 		if(checkPOST("code") === true) $snippet->setCode($_POST["code"]);
-		$editor->updateSnippet($_GET["edit"]);
-		
-		if(checkPOST("name") === true) $editor->renameSnippet($_GET["edit"], $_POST["name"]);
+		if(checkPOST("author") === true) $snippet->setAuthor($_POST["author"]);
+		if(checkPOST("tags") === true) $snippet->setTagsString($_POST["tags"]);
+		$editor->updateSnippet($snippet);
+		if(checkPOST("name") === true) $editor->renameSnippet($snippet, $_POST["name"]);
+		header("Location:index.php");
+		die();
 	}
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,20 +56,12 @@ if (isset($_GET["add"]) === true) {
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Theme Template for Bootstrap</title>
+    <title>CodeSnippetEditor - Add Snippet</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="css/theme.css" rel="stylesheet">
-
-    <!--  This will enable numbers for every code line.  -->
-    <style>
-        .prettyprint ol.linenums > li {
-            list-style-type: decimal;
-        }
-    </style>
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -83,7 +83,7 @@ if (isset($_GET["add"]) === true) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Code Php Xml</a>
+            <a class="navbar-brand" href="index.php">CodeSnippetEditor</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
@@ -108,12 +108,12 @@ if (isset($_GET["add"]) === true) {
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <h3>Code Php XML</h3>
+        <h3>CodeSnippetEditor</h3>
 
         <p><?php echo $title;?></p>
     </div>
 
-    <form class="form-horizontal" method="post" action="?add">
+    <form class="form-horizontal" method="post" action="<?php echo $mode;?>">
         <input type="hidden" name="type">
         <div class="form-group">
             <label for="inputName" class="col-sm-1 control-label">Name</label>
@@ -144,9 +144,10 @@ if (isset($_GET["add"]) === true) {
                 <input type="hidden" name="code" > 
 
                 <div id="editor" style="height: 250px;"><?php echo $code;?></div>
-
+	
             </div>
         </div>
+        <input type="hidden" name="oldSnippetName" value="<?php echo $name;?>"> 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
                 <button type="submit" class="btn btn-default">Save</button>
@@ -169,7 +170,6 @@ if (isset($_GET["add"]) === true) {
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script>-->
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 

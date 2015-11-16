@@ -18,9 +18,7 @@
 			$this->code = $code;
 			$this->author = $author;
 
-			if ($tagsString != null) {
-				$this->tags = $this->parseTagString($tagsString);
-			}
+			$this->setTagsString($tagsString);
 
 			if(!$created) {
 				$this->created = new DateTime();
@@ -53,6 +51,10 @@
 			return $this->author;
 		}
 		
+		public function setAuthor($author) {
+			$this->author = $author;
+		}
+		
 		public function addTag($name) {
 			if(!in_array($name, $this->tags)) $this->tags[] = $name;
 		}
@@ -79,6 +81,12 @@
 		
 		public function parseTagToString() {
 			return implode(";", $this->tags);
+		}
+		
+		public function setTagsString($tagsString) {
+			if ($tagsString != null) {
+				$this->tags = $this->parseTagString($tagsString);
+			}
 		}
 		
 		public function hasTag($name) {

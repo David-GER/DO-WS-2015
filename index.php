@@ -20,7 +20,7 @@ if (checkGET("delete") === true) {
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Theme Template for Bootstrap</title>
+    <title>CodeSnippetEditor</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -55,7 +55,7 @@ if (checkGET("delete") === true) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Code Php Xml</a>
+            <a class="navbar-brand" href="index.php">CodeSnippetEditor</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
@@ -80,9 +80,9 @@ if (checkGET("delete") === true) {
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <h1>Code Php XML</h1>
+        <h1>CodeSnippetEditor</h1>
 
-        <p>Browse through, create, update or delete code snippets loaded from an Xml file.</p>
+        <p>Browse through, create, update or delete code snippets loaded from an XML file.</p>
     </div>
 
  
@@ -92,37 +92,18 @@ if (checkGET("delete") === true) {
     /**
      * TODO
      *
-     * - Search function (widget in navbar)
-     * - Ordering by functionality (created, name, etc)
-     * - Edit, Delete Buttons
-     * - Way to edit existing code in form
-     *
      * - Make more pretty?
      *
      * Maybe:
      * - Is it possible to clean up code snippets (remove empty lines, auto format)?
      * - pagination
-     * - Tags
+	 * - Ordering by functionality (created, name, etc)
      * - Be able to upload whole file to change?
      */
 
 	
-	
-	// Edit, Delete
-	/*
-	if (checkGET("edit") === true) {
-		$snippet = $editor->getSnippet($_GET["edit"]);
-		
-		if($snippet) {
-			if(checkPOST("code") === true) $snippet->setCode($_POST["code"]);
-			$editor->updateSnippet($_GET["edit"]);
-			
-			if(checkPOST("name") === true) $editor->renameSnippet($_GET["edit"], $_POST["name"]);
-		}
-	} elseif (checkGET("delete") === true) {
-		 $editor->deleteSnippet($_GET["delete"]);
-		 $editor->displaySnippets($editor->getSnippets());
-	} else*/if (isset($_GET["search"])) {
+	//Search
+	if (isset($_GET["search"])) {
 		$searchword = $_GET["search"];
 		$searchResults = $editor->search($searchword);
 		$searchResultCount = sizeof($searchResults);
@@ -136,114 +117,7 @@ if (checkGET("delete") === true) {
 	} else {
 		$editor->displaySnippets($editor->getSnippets());
 	}
-	
-	// Snippet Output
-	
-	
-	/*
-	for($i = 0, $c = count($snippets); $i < $c; $i++) {
-		$snippet = $snippets[$i];
-		$author = $snippet->getAuthor();
-		$updates = $snippet->getUpdates();
-		$tags = $snippet->getTags();
-		
-		echo '<div class="snippet_wrapper"><div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
-			. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
-			. $snippet->getName() . '"><span>Delete</span></a></div>';
-
-		echo '<span class="created">Created ' . $snippet->getCreated() . "</span><br/>\n";
-
-		if ($author) {
-			echo '<span class="author">By ' . $author . "</span><br/>\n";
-		}
-
-		if ($updates) {
-			foreach($updates as $update)
-				echo '<span class="updated">Updated ' . $update . "</span><br/>\n";
-		}
-
-		if ($tags) {
-			foreach($tags as $tag)
-				echo
-					'<span class="tag btn btn-default btn-sm" style="margin: 5px 5px 5px 0;">
-						<span class="name">' . $tag . '</span>
-							<a style="display: inline-block; margin-right: -5px; padding-left: 5px;">
-								<i class="delete glyphicon glyphicon-remove" style="vertical-align: text-top;"></i>
-							</a> 
-					</span>';
-		}
-
-		echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
-		echo "</div>\n";
-	}*/
-	
-
-	/*
-    if (file_exists($fileName)) {
-        $xml = simplexml_load_file($fileName);
-
-        if (isset($_GET["add"])) {
-            if (isset($_POST["name"]) && isset($_POST["code"]) && isset($_POST["author"])) {
-
-                $newSnippet = $xml->addChild('snippet');
-                $newSnippet->addAttribute('name', $_POST["name"]);
-                $newSnippet->addChild('author', $_POST["author"]);
-                $newSnippet->addChild('created', time());
-
-                /*
-                 * Source: http://stackoverflow.com/a/20511976/2658408
-                 *
-                 * Didn't create a new class because for some reason it is not possible
-                 * to add an already existing node object (of my extended new class)
-                 * as a child to a parent node.
-                 */
-                /*$codeA = $newSnippet->addChild('codeA');
-
-                if ($codeA !== NULL) {
-                    $node = dom_import_simplexml($codeA);
-                    $no = $node->ownerDocument;
-                    $node->appendChild($no->createCDATASection($_POST["code"]));
-                }
-
-                //saves the new xml construct back to the file after adding a new element.
-                $xml->asXML($fileName);
-            }
-        } else if (isset($_GET["delete"])) {
-			
-			unset($xml->xpath('/codes/snippet[@name="'.$_GET["delete"].'"]')[0][0]);
-			dom_import_simplexml($xml)->ownerDocument->save($fileName);
-			
-        }
-
-        foreach($xml->children() as $snippet ) {
-            $tagName = $snippet->getName();
-
-            if ($tagName != 'snippet') continue;
-
-            echo '<div class="page-header"><h1>' . $snippet['name'] . '</h1><a href="?edit=' . $snippet['name'] . '"><span>Edit</span></a> <a href="?delete=' . $snippet['name'] . '"><span>Delete</span></a></div>';
-
-
-            if (!empty($snippet->created)) {
-                echo '<span class="author">Created ' . $snippet->created . "</span><br/>\n";
-            }
-
-            if (!empty($snippet->author)) {
-                echo '<span class="created">By ' . $snippet->author . "</span><br/>\n";
-            }
-
-            if (!empty($snippet->updated)) {
-                echo '<span class="updated">Updated ' . $snippet->updated . "</span><br/>\n";
-            }
-
-            echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->codeA) . '</code></pre></div>';
-            echo "<br/>\n";
-        }
-
-    } else {
-        exit('Could not read codex.xml!');
-    }*/
-
-    ?>
+	?>
 
 </div>
 

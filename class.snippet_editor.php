@@ -133,8 +133,8 @@
 			return $this->save();
 		}
 		
-		function updateSnippet($x) {
-			$snippet = $this->getSnippet($x);
+		function updateSnippet($snippet) {
+			//$snippet = $this->getSnippet($x);
 			
 			// Check if snippet exists
 			if(!$snippet) return false;
@@ -179,8 +179,8 @@
 			$this->save();
 		}
 		
-		function renameSnippet($oldName, $newName) {
-			$snippet = $this->getSnippet($oldName);
+		function renameSnippet($snippet, $newName) {
+			//$snippet = $this->getSnippet($oldName);
 			
 			// Check if snippet exists
 			if(!$snippet) return false;
@@ -190,7 +190,7 @@
 			// Check if renaming is possible
 			if($snippetExists) return false;
 			
-			$this->deleteSnippet($oldName);
+			$this->deleteSnippet($snippet->getName());
 			$snippet->setName($newName);
 			$this->insertSnippet($snippet);			
 		}
