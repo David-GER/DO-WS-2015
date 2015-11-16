@@ -106,6 +106,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputTags" class="col-sm-1 control-label">Tags</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputTags" name="tags" placeholder='Enter tags (separated by ";")'>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="editor" class="col-sm-1 control-label">Code</label>
 
             <div class="col-sm-10">
@@ -161,7 +168,8 @@
 				$_POST["name"],
 				$_POST["code"],
 				null,
-				checkPOST("author") === true ? $_POST["author"] : null
+				checkPOST("author") === true ? $_POST["author"] : null,
+                checkPOST("tags") === true ? $_POST["tags"] : null
 			));
 		}
 	} elseif (checkGET("edit") === true) {

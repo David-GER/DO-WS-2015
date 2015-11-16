@@ -13,11 +13,15 @@
 		private $tags = array();
 		
 		// Constructor
-		public function __construct($name, $code, $created = null,  $author = null) {
+		public function __construct($name, $code, $created = null,  $author = null, $tagsString = null) {
 			$this->name = $name;
 			$this->code = $code;
 			$this->author = $author;
-			
+
+			if ($tagsString != null) {
+				$this->tags = $this->parseTagString($tagsString);
+			}
+
 			if(!$created) {
 				$this->created = new DateTime();
 			} elseif(is_long($created)) {
@@ -67,6 +71,10 @@
 		
 		public function getTags() {
 			return $this->tags;
+		}
+
+		private function parseTagString($tags) {
+			return explode(";", $tags);
 		}
 		
 		public function hasTag($name) {
