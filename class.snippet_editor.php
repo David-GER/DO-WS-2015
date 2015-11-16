@@ -202,7 +202,7 @@
 				$updates = $snippet->getUpdates();
 				$tags = $snippet->getTags();
 				
-				echo '<div class="snippet_wrapper"><div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
+				echo '<div class="snippet_wrapper"><div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="add.php?edit='
 					. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
 					. $snippet->getName() . '"><span>Delete</span></a></div>';
 		

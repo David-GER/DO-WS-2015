@@ -77,6 +77,10 @@
 			return explode(";", $tags);
 		}
 		
+		public function parseTagToString() {
+			return implode(";", $this->tags);
+		}
+		
 		public function hasTag($name) {
 			for($i = 0, $c = count($this->tags); $i < $c; $i++) {
 				if($this->tags[$i] == $name) return $i;

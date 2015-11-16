@@ -3,6 +3,11 @@ require("functions.php");
 require("class.snippet_editor.php");
 
 $editor = new SnippetEditor('codes_simple.xml');
+$title = "Create a code snippet and load into XML file.";
+$name = '';
+$author = '';
+$code = "//Code here";
+$tags = ''; 
 
 if (isset($_GET["add"]) === true) {
 	if (checkPOST("name", "code") === true) {
@@ -16,6 +21,20 @@ if (isset($_GET["add"]) === true) {
 	}
 	header("Location:index.php");
 	die();
+} elseif (checkGET("edit") === true) {
+	$title = "Edit existing code snippet.";
+	$snippet = $editor->getSnippet($_GET["edit"]);
+	$name = $snippet->getName();
+	$author = $snippet->getAuthor();
+	$code = $snippet->getCode();
+	$tags = $snippet->parseTagToString();
+	
+	if($snippet) {
+		if(checkPOST("code") === true) $snippet->setCode($_POST["code"]);
+		$editor->updateSnippet($_GET["edit"]);
+		
+		if(checkPOST("name") === true) $editor->renameSnippet($_GET["edit"], $_POST["name"]);
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -89,9 +108,9 @@ if (isset($_GET["add"]) === true) {
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <h4>Code Php XML</h4>
+        <h3>Code Php XML</h3>
 
-        <p>Create a code snippets and load into XML file.</p>
+        <p><?php echo $title;?></p>
     </div>
 
     <form class="form-horizontal" method="post" action="?add">
@@ -101,30 +120,30 @@ if (isset($_GET["add"]) === true) {
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputName" name="name"
-                       placeholder="Enter a name for the code.">
+                       placeholder="Enter a name for the code." value="<?php echo $name;?>">
             </div>
         </div>
         <div class="form-group">
             <label for="inputAuthor" class="col-sm-1 control-label">Author</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputAuthor" name="author" placeholder="Enter your name">
+                <input type="text" class="form-control" id="inputAuthor" name="author" placeholder="Enter your name" value="<?php echo $author;?>">
             </div>
         </div>
         <div class="form-group">
             <label for="inputTags" class="col-sm-1 control-label">Tags</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputTags" name="tags" placeholder='Enter tags (separated by ";")'>
+                <input type="text" class="form-control" id="inputTags" name="tags" placeholder='Enter tags (separated by ";")' value="<?php echo $tags;?>">
             </div>
         </div>
         <div class="form-group">
             <label for="editor" class="col-sm-1 control-label">Code</label>
 
             <div class="col-sm-10">
-                <input type="hidden" name="code">
+                <input type="hidden" name="code" > 
 
-                <div id="editor" style="height: 250px;">//Code here</div>
+                <div id="editor" style="height: 250px;"><?php echo $code;?></div>
 
             </div>
         </div>
