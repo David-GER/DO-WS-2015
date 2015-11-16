@@ -133,28 +133,10 @@ if (checkGET("delete") === true) {
 <script src="js/bootstrap.min.js"></script>
 
 
-<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <!--<script src="js/ace/ext-chromevox.js" type="text/javascript" charset="utf-8"></script>-->
 
 <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/chrome");
-    editor.getSession().setMode("ace/mode/c_cpp");
-    editor.setShowPrintMargin(false)
 
-    /**
-     * Source: http://stackoverflow.com/a/11013863/2658408
-     *
-     * This puts the editor's input in a hidden input field before
-     * the editor.
-     */
-
-    var $editor = $('#editor');
-    $editor.closest('form').submit(function () {
-        var code = editor.getValue();
-        $editor.prev('input[type=hidden]').val(code);
-    });
-	
 	function resetTagFilter() {
 		$(".tag").removeClass("btn-info");
 		$(".snippet_wrapper").show();
