@@ -113,16 +113,22 @@
 				
 		public function getLatestUpdate(){
 			$updates = array();
-			$latest_update = $this->updates[0];
-			$currentValue = $this->updates[0];
-			
-			for($i = 0; $i < count($this->updates); $i++) {
-				$currentValue = $this->updates[$i];
-				if($currentValue > $latest_update){
-					$latest_update = $currentValue;
+			$count = count($this->updates);
+			if ($count != 0) {
+				$latest_update = $this->updates[0];
+				$currentValue = $this->updates[0];
+				
+				for($i = 0; $i < count($this->updates); $i++) {
+					$currentValue = $this->updates[$i];
+					if($currentValue > $latest_update){
+						$latest_update = $currentValue;
+					}
 				}
+				return self::getDateString($latest_update);
+			} else {
+				return '';
 			}
-			return self::getDateString($latest_update);
+			
 		}
 		
 		public static function getDateString($date) {
