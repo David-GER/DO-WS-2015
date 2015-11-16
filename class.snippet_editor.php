@@ -195,6 +195,45 @@
 			$this->insertSnippet($snippet);			
 		}
 		
+		function displaySnippets($snippets) {
+			for($i = 0, $c = count($snippets); $i < $c; $i++) {
+				$snippet = $snippets[$i];
+				$author = $snippet->getAuthor();
+				$updates = $snippet->getUpdates();
+				$tags = $snippet->getTags();
+				
+				echo '<div class="snippet_wrapper"><div class="snippet page-header"><h1>' . $snippet->getName() . '</h1><a href="?edit='
+					. $snippet->getName() . '"><span>Edit</span></a> <a href="?delete='
+					. $snippet->getName() . '"><span>Delete</span></a></div>';
+		
+				echo '<span class="created">Created ' . $snippet->getCreated() . "</span><br/>\n";
+		
+				if ($author) {
+					echo '<span class="author">By ' . $author . "</span><br/>\n";
+				}
+		
+				if ($updates) {
+					foreach($updates as $update)
+						echo '<span class="updated">Updated ' . $update . "</span><br/>\n";
+				}
+		
+				if ($tags) {
+					foreach($tags as $tag)
+						echo
+							'<span class="tag btn btn-default btn-sm" style="margin: 5px 5px 5px 0;">
+								<span class="name">' . $tag . '</span>
+									<a style="display: inline-block; margin-right: -5px; padding-left: 5px;">
+										<i class="delete glyphicon glyphicon-remove" style="vertical-align: text-top;"></i>
+									</a> 
+							</span>';
+				}
+		
+				echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
+				echo "</div>\n";
+			}
+		}
+		
+		
 		// Save file
 		private function save() {
 			$dom = new DOMDocument('1.0');

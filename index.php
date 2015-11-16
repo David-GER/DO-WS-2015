@@ -50,7 +50,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="edit.php">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -67,11 +67,11 @@
                 </li>
             </ul>
 
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-left" role="search" method="post" action="?search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" name="searchword" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button class="btn btn-default" id="search_button">Submit</button>
             </form>
         </div>
 
@@ -173,11 +173,36 @@
 			
 			if(checkPOST("name") === true) $editor->renameSnippet($_GET["edit"], $_POST["name"]);
 		}
-	} elseif (checkGET("delete") === true) $editor->deleteSnippet($_GET["delete"]);
+	} elseif (checkGET("delete") === true) {
+		 $editor->deleteSnippet($_GET["delete"]);
+	} elseif (checkPOST("search")) {
+		if (isset ($_POST["searchword"])) {
+			$searchword = $_POST["searchword"];
+			$searchResults = $editor->search($searchword);
+			$searchResultCount = sizeof($searchResults);
+			
+			if ($searchResultCount > 0) {
+				echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
+				$editor->displaySnippets($searchResults);
+			} else {
+				echo 'Your search for "'.$searchword.'" returned '.$searchResultCount.' results.';
+			}
+		}
+	} else {
+		$editor->displaySnippets($editor->getSnippets());
+	}
+		
+	/*
+	if (checkGET("search")) echo 'Variante  1';
+	if (checkPOST("search")) echo 'Variante  2';
+	if (isset($_POST["search"])) echo 'Variante  3';
+	if ($_GET["search"]) echo 'Variante  4';
+	*/
 	
 	// Snippet Output
-	$snippets = $editor->getSnippets();
+	//$snippets = $editor->getSnippets();
 	
+	/*
 	for($i = 0, $c = count($snippets); $i < $c; $i++) {
 		$snippet = $snippets[$i];
 		$author = $snippet->getAuthor();
@@ -212,7 +237,7 @@
 
 		echo '<div><pre class="prettyprint lang-c linenums"><code>' .  htmlspecialchars($snippet->getCode()) . '</code></pre></div>';
 		echo "</div>\n";
-	}
+	}*/
 	
 
 	/*
@@ -386,7 +411,6 @@
 			}
 		});
 	});	
-
 </script>
 
 </body>
