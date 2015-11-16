@@ -110,6 +110,20 @@
 				$updates[] = $this->getUpdate($i);
 			return $updates;
 		}
+				
+		public function getLatestUpdate(){
+			$updates = array();
+			$latest_update = $this->updates[0];
+			$currentValue = $this->updates[0];
+			
+			for($i = 0; $i < count($this->updates); $i++) {
+				$currentValue = $this->updates[$i];
+				if($currentValue > $latest_update){
+					$latest_update = $currentValue;
+				}
+			}
+			return self::getDateString($latest_update);
+		}
 		
 		public static function getDateString($date) {
 			return $date->format("D M d H:i:s T Y");

@@ -142,6 +142,7 @@
 			$element = $this->xml->xpath('/codes/snippet[@name="'.$snippet->getName().'"]')[0];
 			$element["name"] = $snippet->getName();
 			$element->codeA[0]->setCData($snippet->getCode());
+			$element->author[0] = $snippet->getAuthor(); 
 			$element->updated[] = Snippet::getDateString(new DateTime());
 			
 			// Update tags
@@ -199,6 +200,7 @@
 			for($i = 0, $c = count($snippets); $i < $c; $i++) {
 				$snippet = $snippets[$i];
 				$author = $snippet->getAuthor();
+				$latest_update = $snippet->getLatestUpdate();
 				$updates = $snippet->getUpdates();
 				$tags = $snippet->getTags();
 				
@@ -212,9 +214,10 @@
 					echo '<span class="author">By ' . $author . "</span><br/>\n";
 				}
 		
-				if ($updates) {
-					foreach($updates as $update)
-						echo '<span class="updated">Updated ' . $update . "</span><br/>\n";
+				if ($latest_update) {
+					echo '<span class="updated">Updated ' . $latest_update . "</span><br/>\n";
+					/*foreach($updates as $update)
+						echo '<span class="updated">Updated ' . $update . "</span><br/>\n";*/
 				}
 		
 				if ($tags) {
