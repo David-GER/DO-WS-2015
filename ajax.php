@@ -30,7 +30,7 @@
 				if($snippet) {
 					$success = $snippet->removeTag($_POST["name"]);
 					if(!$success) finish("ERROR", "Tag '" . $_POST["name"] . "' not found in snippet '" . $_POST["snippet"] . "'");
-					if($editor->updateSnippet($_POST["snippet"])) finish("OK");
+					if($editor->updateSnippet($snippet)) finish("OK");
 					
 					finish("ERROR", "Could not save file '" . $file . "'");
 				}

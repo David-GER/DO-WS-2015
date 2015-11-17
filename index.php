@@ -132,7 +132,7 @@ if (checkGET("delete") === true) {
         <p>Do you really want to delete this entry?</p>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-default" data-dismiss="modal">Cancel</a>
         <a class="btn btn-danger btn-ok">Delete</a>
       </div>
     </div>
